@@ -14,5 +14,21 @@ namespace Event.EntityFramework
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Models.Event> Events { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EventUser>()
+                .HasKey(bc => new {bc.EventId, bc.UserId});
+
+            modelBuilder.Entity<EventUser>()
+                .HasOne(bc => bc.Event)
+                .WithMany(b => b.eventUser)
+                .HasForeignKey(bc => bc.EventId);
+
+            modelBuilder.Entity<EventUser>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.userEvent)
+                .HasForeignKey(bc => bc.UserId);
+        }
+
     }
 }

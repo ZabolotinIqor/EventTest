@@ -7,6 +7,7 @@ namespace Event.DTOs
 {
     public class InviteDTO
     {
+        public int EventId { get; set; }
         public string Email { get; set; }
         public string InvitationText { get; set; }
         public string Name { get; set; }

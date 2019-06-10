@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Event.EntityFramework;
+﻿using Event.EntityFramework;
 using Event.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
@@ -45,8 +40,8 @@ namespace Event
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
             services.AddDbContext<EventDbContext>(opt => {
-                var sqlConnectionString = config.GetConnectionString("DefaultConnection");
-                opt.UseSqlServer(sqlConnectionString);
+                var sqlConnectionString = config.GetConnectionString("Default");
+                opt.UseNpgsql(sqlConnectionString, o => o.MigrationsAssembly("Event"));
             });
 
         }

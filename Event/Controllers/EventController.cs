@@ -50,7 +50,61 @@ namespace Event.Controllers
             }
             return BadRequest("Not correct query");
         }
+        [HttpPost("CreateEvent")]
+        public async Task<ActionResult> CreateEvent(Models.Event eventModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await eventService.CreateEvent(eventModel);
+                if (result == null)
+                {
+                    return NotFound();
+                }
 
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+        [HttpPut("UpdateEvent")]
+        public async Task<ActionResult> UpdateEvent(Models.Event eventModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await eventService.UpdateEvent(eventModel);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+        [HttpGet("GetUpcomingEvents")]
+        public async Task<ActionResult> GetUpcomingEvents()
+        {
+            var result = await eventService.GetUpcomingEvents();
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+        [HttpGet("GetEventsByUserId")]
+        public async Task<ActionResult> GetEventsByUserId(int id)
+        {
+            var result = await eventService.GetEventsByUserId(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
 
     }
 }
+

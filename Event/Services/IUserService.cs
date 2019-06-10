@@ -8,8 +8,8 @@ namespace Event.Services
 {
     public interface IUserService
     {
-        Task<User> Login();
-        Task<User> AddUser(User user);
+        Task<User> Login(string email);
+        Task<User> Reqister(User user);
         Task DeleteUser(int id);
         Task<User> UpdateUser(User user);
         Task<IEnumerable<User>> GetAllUsers();

@@ -14,7 +14,7 @@ namespace Event.Models
         public DateTime StartDate { get; set; }
         public DateTime LastDate { get; set; }
         public int CreatorUserId { get; set; }
-        public IEnumerable<User> Participants { get; set; }
+        public virtual ICollection<EventUser> eventUser { get; set; }
 
     }
 }

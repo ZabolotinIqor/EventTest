@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Event.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController:Controller
+    public class UserController : Controller
     {
         private readonly IUserService userService;
 
@@ -17,6 +17,7 @@ namespace Event.Controllers
         {
             this.userService = userService;
         }
+
         [HttpGet("GetAllUsers")]
         public async Task<ActionResult> GetAllUsers()
         {
@@ -28,6 +29,7 @@ namespace Event.Controllers
 
             return Ok(result);
         }
+
         [HttpGet("GetUserById")]
         public async Task<ActionResult> GetUserById(int id)
         {
@@ -36,8 +38,10 @@ namespace Event.Controllers
             {
                 return NotFound();
             }
+
             return Ok(result);
         }
+
         [HttpDelete("DeleteUserById")]
         public async Task<ActionResult> DeleteUser(int id)
         {
@@ -49,20 +53,24 @@ namespace Event.Controllers
 
             return Ok(result);
         }
+
         [HttpPost("RegisterUser")]
-        public async Task<ActionResult> RegisterUser([FromBody]User user)
+        public async Task<ActionResult> RegisterUser([FromBody] User user)
         {
             if (ModelState.IsValid)
             {
-                var result = await userService.AddUser(user);
-                if (result==null)
+                var result = await userService.Reqister(user);
+                if (result == null)
                 {
                     return NotFound();
                 }
+
                 return Ok(result);
             }
+
             return BadRequest("Not correct query");
         }
+
         [HttpPut("EditUser")]
         public async Task<ActionResult> EditUser([FromBody] User user)
         {
@@ -73,10 +81,28 @@ namespace Event.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(result);
             }
+
             return BadRequest("Not correct query");
         }
+        [HttpGet("Login")]
+        public async Task<ActionResult> Login(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                var result = await userService.Login(email);
+                if (result == null)
+                {
+                    return NotFound();
+                }
 
+                return Ok(result);
+            }
+
+            return BadRequest("Not correct query");
+
+        }
     }
 }

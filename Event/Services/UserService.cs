@@ -16,7 +16,7 @@ namespace Event.Services
         {
             this.context = context;
         }
-        public async Task<User> AddUser(User user)
+        public async Task<User> Reqister(User user)
         {
             var _user = new User()
             {
@@ -47,10 +47,10 @@ namespace Event.Services
             return await context.User.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        //Пока не знаю что должен делать.
-        public Task<User> Login()
+        public async Task<User> Login(string email)
         {
-            throw new NotImplementedException();
+            var result = await context.User.FirstOrDefaultAsync(p => p.Email == email);
+            return result;
         }
 
         public async Task<User> UpdateUser(User user)

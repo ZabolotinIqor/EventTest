@@ -3,8 +3,8 @@ using System;
 using Event.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Event.Migrations
 {
@@ -15,42 +15,51 @@ namespace Event.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Event.Models.Event", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<int?>("CreatorUserId");
+                    b.Property<int>("CreatorUserId");
 
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("LastDate");
 
+                    b.Property<string>("Name");
+
                     b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorUserId");
-
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Event.Models.EventUser", b =>
+                {
+                    b.Property<int>("EventId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("EventId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("EventUser");
                 });
 
             modelBuilder.Entity("Event.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email");
-
-                    b.Property<int?>("EventId");
 
                     b.Property<string>("FirstName");
 
@@ -58,23 +67,20 @@ namespace Event.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventId");
-
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Event.Models.Event", b =>
+            modelBuilder.Entity("Event.Models.EventUser", b =>
                 {
-                    b.HasOne("Event.Models.User", "CreatorUser")
-                        .WithMany()
-                        .HasForeignKey("CreatorUserId");
-                });
+                    b.HasOne("Event.Models.Event", "Event")
+                        .WithMany("eventUser")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity("Event.Models.User", b =>
-                {
-                    b.HasOne("Event.Models.Event")
-                        .WithMany("Participants")
-                        .HasForeignKey("EventId");
+                    b.HasOne("Event.Models.User", "User")
+                        .WithMany("userEvent")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
