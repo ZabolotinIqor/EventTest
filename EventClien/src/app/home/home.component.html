@@ -1,3 +1,25 @@
-<p>
-  home works!
-</p>
+<div class="icon-bar">
+  <a class="icon-bar-item" [routerLink]="['/event']">
+    <i class="fas fa-calendar-check"></i>
+    <p>All Events</p>
+  </a>
+  <a class="icon-bar-item" [routerLink]="['/scheduled']">
+    <i class="fas fa-calendar-alt"></i>
+    <p>Scheduled Event</p>
+  </a>
+  <a class="icon-bar-item" [routerLink]="['/notstarted']">
+    <i class="fas fa-calendar-times"></i>
+    <p>Not Started Events</p>
+  </a>
+  <a class="icon-bar-item" [routerLink]="['/invite']">
+    <i class="fas fa-users"></i>
+    <p>Ivite to event</p>
+  </a>
+  <a class="icon-bar-item" [routerLink]="['/create']">
+    <i class="fas fa-plus-circle"></i>
+    <p>Create Event</p>
+  </a>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
