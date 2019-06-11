@@ -1,8 +1,8 @@
 export class eventDTO {
-    public Id: number;
-    public Name: string;
-    public Description: string;
-    public CreationDate : Date;
-    public StartDate : Date;
-    public LastDate : Date;
+    public id: number;
+    public name: string;
+    public description: string;
+    public creationDate: Date;
+    public startDate: Date;
+    public lastDate: Date;
   }

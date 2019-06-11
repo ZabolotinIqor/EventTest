@@ -1,3 +1,7 @@
-<p>
-  create works!
-</p>
+<form (ngSubmit)="create()">
+  <input type="text" name="name" placeholder="Name" [(ngModel)]="EventModel.name">
+  <input type="text" name="description" placeholder="Description" [(ngModel)]="EventModel.desription">
+  <input class="form-control" placeholder="start date" ngbDatepicker name="d" [(ngModel)]="EventModel.startDate" />
+  <input class="form-control" placeholder="last Date" ngbDatepicker name="d" [(ngModel)]="EventModel.lastDate" />
+  <button class="btn btn-success">Create Event</button>
+</form>

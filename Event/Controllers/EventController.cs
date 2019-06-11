@@ -51,7 +51,7 @@ namespace Event.Controllers
             return BadRequest("Not correct query");
         }
         [HttpPost("CreateEvent")]
-        public async Task<ActionResult> CreateEvent(Models.Event eventModel)
+        public async Task<ActionResult> CreateEvent([FromBody]EventDTO eventModel)
         {
             if (ModelState.IsValid)
             {

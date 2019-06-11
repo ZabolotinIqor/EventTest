@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { invitePostDTO } from './Models/invitePostDTO';
+import { InviteService } from './Services/invite.service';
 
 @Component({
   selector: 'app-invite',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InviteComponent implements OnInit {
 
-  constructor() { }
+  InvitePost: invitePostDTO = new invitePostDTO();
+  constructor(private inviteService: InviteService) { }
 
   ngOnInit() {
   }
-
+  invite() {
+    this.inviteService.invite(this.InvitePost).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 }

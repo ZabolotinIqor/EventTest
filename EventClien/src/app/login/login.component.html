@@ -1,4 +1,10 @@
 <form (ngSubmit)="onSubmit()">
   <input type="text" name="email" id="email" placeholder="Enter email" [(ngModel)]="LoginModel.email">
   <button type="submit">Sign in</button>
+  <a  [routerLink]="['/sugn-up']">
+    <p>Sign Up</p>
+  </a>
 </form>
+<div class="container">
+    <router-outlet></router-outlet>
+  </div>

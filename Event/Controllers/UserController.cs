@@ -1,4 +1,5 @@
-﻿using Event.Models;
+﻿using Event.DTOs;
+using Event.Models;
 using Event.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -55,7 +56,7 @@ namespace Event.Controllers
         }
 
         [HttpPost("RegisterUser")]
-        public async Task<ActionResult> RegisterUser([FromBody] User user)
+        public async Task<ActionResult> RegisterUser([FromBody] ReqisterDTO user)
         {
             if (ModelState.IsValid)
             {
@@ -87,12 +88,12 @@ namespace Event.Controllers
 
             return BadRequest("Not correct query");
         }
-        [HttpGet("Login")]
-        public async Task<ActionResult> Login(string email)
+        [HttpPost("Login")]
+        public async Task<ActionResult> Login([FromBody]LoginDTO loginDto)
         {
-            if (!string.IsNullOrEmpty(email))
+            if (ModelState.IsValid)
             {
-                var result = await userService.Login(email);
+                var result = await userService.Login(loginDto);
                 if (result == null)
                 {
                     return NotFound();

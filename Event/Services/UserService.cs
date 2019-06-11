@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Event.DTOs;
 using Event.EntityFramework;
 using Event.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace Event.Services
         {
             this.context = context;
         }
-        public async Task<User> Reqister(User user)
+        public async Task<User> Reqister(ReqisterDTO user)
         {
             var _user = new User()
             {
@@ -47,9 +48,9 @@ namespace Event.Services
             return await context.User.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<User> Login(string email)
+        public async Task<User> Login(LoginDTO loginDto)
         {
-            var result = await context.User.FirstOrDefaultAsync(p => p.Email == email);
+            var result = await context.User.FirstOrDefaultAsync(p => p.Email == loginDto.email);
             return result;
         }
 

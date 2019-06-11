@@ -13,6 +13,7 @@ namespace Event.EntityFramework
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Models.Event> Events { get; set; }
+        public virtual DbSet<EventUser> EventUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,4 +1,6 @@
+import { NotstartService } from './Services/notstart.service';
 import { Component, OnInit } from '@angular/core';
+import { eventDTO } from '../event/Models/eventDTO';
 
 @Component({
   selector: 'app-notstarted',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotstartedComponent implements OnInit {
 
-  constructor() { }
+
+  events: eventDTO[] = [];
+  constructor(private notstartedService: NotstartService) { }
 
   ngOnInit() {
+    this.notstartedService.getUpcomingEvents().subscribe((res: eventDTO[]) => {
+      this.events = res;
+    });
   }
 
 }

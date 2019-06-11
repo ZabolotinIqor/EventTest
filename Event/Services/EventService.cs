@@ -24,7 +24,7 @@ namespace Event.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<Models.Event> CreateEvent(Models.Event eventModel)
+        public async Task<Models.Event> CreateEvent(EventDTO eventModel)
         {
             var _event = new Models.Event()
             {
@@ -52,14 +52,21 @@ namespace Event.Services
 
         public async Task<IEnumerable<Models.Event>> GetEventsByUserId(int id)
         {
-            return await context.Events.Where(p => p.eventUser.Any(o => o.UserId == id)).ToListAsync();
+            return await context.EventUsers.Where(x=>x.UserId==id).Select(o=>o.Event).ToListAsync();
         }
 
         public async Task InvitePeopleToEvent(InviteDTO invite)
         {
             var user = await context.User.FirstOrDefaultAsync(p => p.Email == invite.Email);
             var _event = await context.Events.FirstOrDefaultAsync(p => p.Id == invite.EventId);
-          //  _event.eventUser.ToList().Add(user);
+            var eventUser=new EventUser()
+            {
+                UserId = user.Id,
+                User = user,
+                EventId = _event.Id,
+                Event = _event
+            };
+            await context.EventUsers.AddAsync(eventUser);
             await context.SaveChangesAsync();
 
 

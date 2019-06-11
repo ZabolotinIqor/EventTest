@@ -1,4 +1,6 @@
+import { ScheduleService } from './Services/schedule.service';
 import { Component, OnInit } from '@angular/core';
+import { eventDTO } from '../event/Models/eventDTO';
 
 @Component({
   selector: 'app-scheduled',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScheduledComponent implements OnInit {
 
-  constructor() { }
+  events: eventDTO[] = [];
+  constructor(private scheduleService: ScheduleService) { }
 
   ngOnInit() {
+    this.scheduleService.getUpcomingEvents().subscribe((res: eventDTO[]) => {
+      this.events = res;
+    });
   }
-
 }

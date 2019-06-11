@@ -10,15 +10,14 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   LoginModel: loginDTO = new loginDTO();
-  constructor(private loginService:LoginService,private route:Router) { }
+  constructor(private loginService: LoginService, private route: Router) { }
 
   ngOnInit() {
   }
   onSubmit() {
-    console.log("onSubmit works");
     this.loginService.loginUser(this.LoginModel).subscribe(
         response => {
-            if (response.token != null ) {
+            if (response.id != null ) {
                 this.route.navigate(['home']);
             } else {
                 this.route.navigate(['login']);

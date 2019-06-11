@@ -13,6 +13,7 @@ import { NotstartedComponent } from './notstarted/notstarted.component';
 import { InviteComponent } from './invite/invite.component';
 import { EditComponent } from './edit/edit.component';
 import { CreateComponent } from './create/create.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 
@@ -27,6 +28,7 @@ import { CreateComponent } from './create/create.component';
     InviteComponent,
     EditComponent,
     CreateComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

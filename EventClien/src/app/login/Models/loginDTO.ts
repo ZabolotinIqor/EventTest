@@ -1,3 +1,3 @@
-export class loginDTO{
-    email:string;
+export class loginDTO {
+    email: string;
 }

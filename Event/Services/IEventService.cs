@@ -8,7 +8,7 @@ namespace Event.Services
 {
     public interface IEventService
     {
-        Task<Models.Event> CreateEvent(Models.Event eventModel);
+        Task<Models.Event> CreateEvent(EventDTO eventModel);
         Task CanselEvent(int id);
         Task<Models.Event> UpdateEvent(Models.Event eventModel);
         Task InvitePeopleToEvent(InviteDTO invite);

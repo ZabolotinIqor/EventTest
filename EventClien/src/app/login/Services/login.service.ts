@@ -10,12 +10,11 @@ import { tap, catchError, map } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private apiUrl = environment.apiEndpoint + '/api/User/login';
+  private apiUrl = environment.apiEndpoint + '/api/User/Login';
 
-  constructor(private route: Router,private httpClient:HttpClient) { }
+  constructor(private route: Router, private httpClient: HttpClient) { }
 
-  loginUser(loginmodel: loginDTO){
-    console.log("service works");
+  loginUser(loginmodel: loginDTO) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<any>(this.apiUrl, loginmodel, { headers })
     .pipe(map(user => {
